@@ -1,0 +1,11 @@
+[Unit]
+Description=checks current ip address and sets subdomain.domain.com dns to that same address
+
+[Service]
+User=<user>
+WorkingDirectory=<directory>
+ExecStart=nohup ./DnsIpParityEnforcer &
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
