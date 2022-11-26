@@ -14,7 +14,7 @@ var prevIp = "0.0.0.0"
 func main() {
 
     scheduler := gocron.NewScheduler(time.UTC)
-    scheduler.Every(10).Minutes().Do(postData)
+    scheduler.Every(10).Minutes().Do(EnforceIpParity)
     scheduler.StartBlocking()
 }
 
@@ -23,7 +23,12 @@ type ApiResp struct{
     Country string
 }
 
-func postData() {
+func EnforceIpParity() {
+    defer func() {
+        if r := recover(); r != nil {
+            fmt.Println("chron job failed in an unexpected way", r)
+        }
+    }()
     var resp ApiResp
     body, err := queryForIpAddress()
     if err != nil{
