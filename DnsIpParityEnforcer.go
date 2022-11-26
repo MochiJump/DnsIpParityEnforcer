@@ -65,6 +65,7 @@ func findCurrentDnsIp(){
 
 
 func queryForIpAddress() ([]byte, error) {
+    //alternative: https://ipapi.co/json/
     resp, err := http.Get("https://api.myip.com")
     if err != nil {
         fmt.Println("Error %s", err)
